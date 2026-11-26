@@ -9,7 +9,7 @@ GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
-BG_COLOR = (0, 0, 0)
+BOARD_BACKGROUND_COLOR = (0, 0, 0)
 GRID_COLOR = (10, 10, 10)
 SNAKE_COLOR = (0, 255, 0)
 APPLE_COLOR = (255, 0, 0)
@@ -18,6 +18,9 @@ UP = (0, -1)
 DOWN = (0, 1)
 LEFT = (-1, 0)
 RIGHT = (1, 0)
+
+screen = None
+clock = None
 
 
 class GameObj(ABC):
@@ -114,7 +117,7 @@ class Snake(GameObj):
                 (GRID_SIZE, GRID_SIZE),
             )
             pygame.draw.rect(surface, self.body_color, rect)
-            pygame.draw.rect(surface, BG_COLOR, rect, 1)
+            pygame.draw.rect(surface, BOARD_BACKGROUND_COLOR, rect, 1)
 
     def reset(self):
         """Сбрасывает змейку в начальное состояние."""
@@ -148,6 +151,7 @@ def draw_grid(surface):
 
 def main():
     """Запускает основной игровой цикл."""
+    global screen, clock
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('Змейка')
@@ -169,7 +173,7 @@ def main():
             snake.length += 1
             apple.randomize_position(snake.positions)
 
-        screen.fill(BG_COLOR)
+        screen.fill(BOARD_BACKGROUND_COLOR)
         draw_grid(screen)
         apple.draw(screen)
         snake.draw(screen)
