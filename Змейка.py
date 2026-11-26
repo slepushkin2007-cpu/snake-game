@@ -1,12 +1,13 @@
 import random
-import pygame
 from abc import ABC, abstractmethod
+
+import pygame
 
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 GRID_SIZE = 20
-GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE  # 32
-GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE  # 24
+GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
+GRID_HEIGHT = SCREEN_HEIGHT // GRID_SIZE
 
 BG_COLOR = (0, 0, 0)
 GRID_COLOR = (10, 10, 10)
@@ -21,7 +22,7 @@ RIGHT = (1, 0)
 
 class GameObj(ABC):
 
-    def __init__(self, position: tuple, body_color: tuple):
+    def __init__(self, position, body_color):
         self.position = position
         self.body_color = body_color
 
@@ -34,15 +35,19 @@ class Apple(GameObj):
 
     def __init__(self):
         super().__init__(
-            position=(random.randint(0, GRID_WIDTH - 1),
-                      random.randint(0, GRID_HEIGHT - 1)),
+            position=(
+                random.randint(0, GRID_WIDTH - 1),
+                random.randint(0, GRID_HEIGHT - 1),
+            ),
             body_color=APPLE_COLOR,
         )
 
-    def randomize_position(self, snake_positions: list):
+    def randomize_position(self, snake_positions):
         while True:
-            new_pos = (random.randint(0, GRID_WIDTH - 1),
-                       random.randint(0, GRID_HEIGHT - 1))
+            new_pos = (
+                random.randint(0, GRID_WIDTH - 1),
+                random.randint(0, GRID_HEIGHT - 1),
+            )
             if new_pos not in snake_positions:
                 self.position = new_pos
                 break
@@ -66,11 +71,11 @@ class Snake(GameObj):
         self.next_direction = RIGHT
 
     def update_direction(self):
-        if (self.next_direction[0] + self.direction[0] != 0 or
-                self.next_direction[1] + self.direction[1] != 0):
+        if (self.next_direction[0] + self.direction[0] != 0
+                or self.next_direction[1] + self.direction[1] != 0):
             self.direction = self.next_direction
 
-    def get_head_position(self) -> tuple:
+    def get_head_position(self):
         return self.positions[0]
 
     def move(self):
@@ -86,7 +91,6 @@ class Snake(GameObj):
             return
 
         self.positions.insert(0, new_head)
-
         if len(self.positions) > self.length:
             self.positions.pop()
 
@@ -107,7 +111,7 @@ class Snake(GameObj):
         self.next_direction = RIGHT
 
 
-def handle_keys(snake: Snake):
+def handle_keys(snake):
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         snake.next_direction = UP
@@ -129,7 +133,7 @@ def draw_grid(surface):
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Змейка")
+    pygame.display.set_caption('Змейка')
     clock = pygame.time.Clock()
 
     snake = Snake()
@@ -159,5 +163,5 @@ def main():
     pygame.quit()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
