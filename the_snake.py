@@ -1,5 +1,4 @@
 import random
-from abc import ABC, abstractmethod
 
 import pygame
 
@@ -25,15 +24,14 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 clock = pygame.time.Clock()
 
 
-class GameObject(ABC):
+class GameObject:
     """Базовый класс игровых объектов."""
 
-    def __init__(self, position, body_color):
+    def __init__(self, position=None, body_color=None):
         """Инициализирует позицию и цвет."""
         self.position = position
         self.body_color = body_color
 
-    @abstractmethod
     def draw(self, surface):
         """Рисует объект на поверхности."""
         pass
