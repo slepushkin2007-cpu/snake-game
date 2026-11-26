@@ -29,6 +29,7 @@ class GameObj(ABC):
 
     @abstractmethod
     def draw(self, surface):
+        pass
 
 
 class Apple(GameObj):
