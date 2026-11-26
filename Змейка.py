@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 
 import pygame
 
+
 SCREEN_WIDTH = 640
 SCREEN_HEIGHT = 480
 GRID_SIZE = 20
@@ -28,7 +29,6 @@ class GameObj(ABC):
 
     @abstractmethod
     def draw(self, surface):
-        pass
 
 
 class Apple(GameObj):
