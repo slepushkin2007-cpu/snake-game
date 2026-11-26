@@ -80,7 +80,7 @@ class Snake(GameObj):
         self.next_direction = RIGHT
 
     def update_direction(self):
-        """Применяет следующее направление, если оно не противоположно текущему."""
+        """Меняет направление, если новое не противоположно."""
         if (self.next_direction[0] + self.direction[0] != 0
                 or self.next_direction[1] + self.direction[1] != 0):
             self.direction = self.next_direction
